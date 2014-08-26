@@ -17,7 +17,7 @@ Basic Usage
 
 After installation of Flask you will now find a ``flask`` script installed
 into your virtualenv.  If you don't want to install Flask or you have a
-special use-case you can also use ``python -mflask`` to accomplish exactly
+special use-case you can also use ``python -m flask`` to accomplish exactly
 the same.
 
 The way this script works is by providing access to all the commands on
@@ -99,6 +99,24 @@ The command will then show up on the command line::
 
     $ flask -a hello.py initdb
     Init the db
+
+Application Context
+-------------------
+
+Most commands operate on the application so it makes a lot of sense if
+they have the application context setup.  Because of this, if you register
+a callback on ``app.cli`` with the :meth:`~flask.cli.AppGroup.command` the
+callback will automatically be wrapped through :func:`cli.with_appcontext`
+which informs the cli system to ensure that an application context is set
+up.  This behavior is not available if a command is lated later with
+:func:`~click.Group.add_command` or through other means.
+
+It can also be disabled by passing ``with_appcontext=False`` to the
+decorator::
+
+    @app.cli.command(with_appcontext=False)
+    def example():
+        pass
 
 Factory Functions
 -----------------
@@ -194,7 +212,7 @@ step.
     either directly import an application object or create it (see
     :ref:`app-factories`).
 
-    What is ``data.info``?  It's a dictionary of arbitrary data on the
+    What is ``info.data``?  It's a dictionary of arbitrary data on the
     script info that can be filled by options or through other means.  We
     will come back to this later.
 3.  Next step is to create a :class:`FlaskGroup`.  In this case we just
@@ -215,8 +233,8 @@ step.
 The Script Info
 ---------------
 
-The Flask script integration might be confusing at first, but it has good
-rasons it's done this way.  The reason for this is that Flask wants to
+The Flask script integration might be confusing at first, but there is a reason
+why it's done this way.  The reason for this is that Flask wants to
 both provide custom commands to click as well as not loading your
 application unless it has to.  The reason for this is added flexibility.
 

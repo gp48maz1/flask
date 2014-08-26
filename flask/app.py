@@ -24,7 +24,7 @@ from werkzeug.exceptions import HTTPException, InternalServerError, \
 
 from .helpers import _PackageBoundObject, url_for, get_flashed_messages, \
      locked_cached_property, _endpoint_from_view_func, find_package
-from . import json
+from . import json, cli
 from .wrappers import Request, Response
 from .config import ConfigAttribute, Config
 from .ctx import RequestContext, AppContext, _AppCtxGlobals
@@ -167,7 +167,7 @@ class Flask(_PackageBoundObject):
     #:
     #: In Flask 0.9 this property was called `request_globals_class` but it
     #: was changed in 0.10 to :attr:`app_ctx_globals_class` because the
-    #: flask.g object is not application context scoped.
+    #: flask.g object is now application context scoped.
     #:
     #: .. versionadded:: 0.10
     app_ctx_globals_class = _AppCtxGlobals
@@ -544,7 +544,7 @@ class Flask(_PackageBoundObject):
         #: provided by Flask itself and can be overridden.
         #:
         #: This is an instance of a :class:`click.Group` object.
-        self.cli = click.Group(self)
+        self.cli = cli.AppGroup(self)
 
     def _get_error_handlers(self):
         from warnings import warn

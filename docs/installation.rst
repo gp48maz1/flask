@@ -81,7 +81,13 @@ If you are a Windows user, the following command is for you::
 Either way, you should now be using your virtualenv (notice how the prompt of
 your shell has changed to show the active environment).
 
-Now you can just enter the following command to get Flask activated in your
+And if you want to go back to the real world, use the following command::
+
+    $ deactivate
+
+After doing this, the prompt of your shell should be as familar as before.
+
+Now, let's move on. Enter the following command to get Flask activated in your
 virtualenv::
 
     $ pip install Flask
@@ -174,8 +180,8 @@ check that you can now just type ``python`` to bring up the interpreter.
 Finally, to install `virtualenv`_, you can simply run::
 
     > pip install virtualenv
-    
+
 Then you can be off on your way following the installation instructions above.
 
-.. _get-pip.py: https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+.. _get-pip.py: https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py
 .. _ez_setup.py: https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
